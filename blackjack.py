@@ -1,6 +1,7 @@
 import random
 has_colorama = True
 try:
+    # The Colorama module is recommended but not required
     from colorama import Fore
 except ImportError:
     Fore = None
@@ -37,6 +38,7 @@ class Hand:
         location.append(self)
         self.name = name
         self.control = control
+        # For AI-controlled players, initializing the strategy to stand on 17 points:
         self.strategy_score = strategy_score
         self.strategy_complex = strategy_complex
         self.held = held
@@ -71,7 +73,7 @@ class Hand:
         return ", ".join(map(str, self.held))
 
     def draw(self, fresh=False):
-        if fresh or not deck:
+        if fresh or not deck:  # Will generates cards randomly once the deck empties
             value = random.randint(1, 13)
             serial = random.randint(0, 3)
             generated = Card(value, serial)
@@ -151,7 +153,7 @@ players_location = []
 dummy = ""
 for num in range(num_players):
     dummy = Hand(players_location, "Player " + str(num + 1))
-    if num == 0:
+    if num == 0:  # Choosing Player 1 to take input from the user
         dummy.control = "Player"
 
 players_standing = [False] * len(players_location)
